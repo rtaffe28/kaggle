@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import OneHotEncoder
 
 train_data = pd.read_csv('ml-2024-f/train_final.csv')
@@ -22,7 +22,7 @@ one_hot_test = pd.DataFrame(encoded_test, columns=encoder.get_feature_names_out(
 encoded_train_f = pd.concat([X_train.drop(categorical_columns, axis=1), one_hot_train], axis=1)
 encoded_test_f = pd.concat([X_test.drop(categorical_columns, axis=1), one_hot_test], axis=1)
 
-model = GradientBoostingClassifier()
+model = LogisticRegression()
 model.fit(encoded_train_f, y_train)
 
 proba_predictions = model.predict_proba(encoded_test_f)[:, 1]
